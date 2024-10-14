@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 6</title>
+  <style>
+    .aprovado {
+      color: green;
+      font-weight: bold;
+    }
+    .reprovado {
+      color: red;
+      font-weight: bold;
+    }
+    .avaliacao-final {
+      color: blue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cadastro de Alunos</h1>
+
+  <form id="formulario">
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br><br>
+
+    <label for="rgm">RGM:</label><br>
+    <input type="text" id="rgm" name="rgm"><br><br>
+
+    <label for="nota_p">Nota Parcial (máximo 2 pontos):</label><br>
+    <input type="number" id="nota_p" name="nota_p" min="0" max="2"><br><br>
+
+    <label for="nota_exer">Nota Exercícios (máximo 1 ponto):</label><br>
+    <input type="number" id="nota_exer" name="nota_exer" min="0" max="1"><br><br>
+
+    <label for="nota_proj">Nota Projeto (máximo 2 pontos):</label><br>
+    <input type="number" id="nota_proj" name="nota_proj" min="0" max="2"><br><br>
+
+    <label for="nota_reg">Nota Regimental (máximo 5 pontos):</label><br>
+    <input type="number" id="nota_reg" name="nota_reg" min="0" max="5"><br><br>
+
+    <button type="button" onclick="cadastrarAluno()">Cadastrar</button>
+    <button type="button" onclick="mostrarAlunos()">Mostrar</button>
+  </form>
+
+  <br>
+
+  <table id="tabela" style="display: none;">
+    <thead>
+      <tr>
+        <th>RGM</th>
+        <th>Nome</th>
+        <th>Nota Parcial</th>
+        <th>Nota Exercícios</th>
+        <th>Nota Projeto</th>
+        <th>Nota Regimental</th>
+        <th>Nota Final</th>
+        <th>Conceito</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    let rgms = [];
+    let nomes = [];
+    let notas_p = [];
+    let notas_exer = [];
+    let notas_proj = [];
+    let notas_reg = [];
+
+    function cadastrarAluno() {
+      // Obter os valores dos campos do formulário
+      let nome = document.getElementById("nome").value;
+      let rgm = document.getElementById("rgm").value;
+      let nota_p = parseFloat(document.getElementById("nota_p").value);
+      let nota_exer = parseFloat(document.getElementById("nota_exer").value);
+      let nota_proj = parseFloat(document.getElementById("nota_proj").value);
+      let nota_reg = parseFloat(document.getElementById("nota_reg").value);
+
+
+      rgms.push(rgm);
+      nomes.push(nome);
+      notas_p.push(nota_p);
+      notas_exer.push(nota_exer);
+      notas_proj.push(nota_proj);
+      notas_reg.push(nota_reg);
+
+      document.getElementById("formulario").reset();
+
+      alert("Aluno cadastrado com sucesso!");
+    }
+
+    function mostrarAlunos() {
+      let tabela = document.getElementById("tabela");
+      let tbody = tabela.getElementsByTagName("tbody")[0];
+
+      // Limpar a tabela
+      tbody.innerHTML = "";
+
+      // Preencher a tabela com os dados dos vetores
+      for (let i = 0; i < rgms.length; i++) {
+        // Calcular a nota final
+        let notaFinal = calcularNotaFinal(notas_p[i], notas_exer[i], notas_proj[i], notas_reg[i]);
+        // Obter o conceito
+        let conceito = obterConceito(notaFinal);
+        // Criar uma nova linha na tabela
+        let linha = document.createElement("tr");
+        // Adicionar as células à linha
+        linha.innerHTML = `
+          <td>${rgms[i]}</td>
+          <td>${nomes[i]}</td>
+          <td>${notas_p[i]}</td>
+          <td>${notas_exer[i]}</td>
+          <td>${notas_proj[i]}</td>
+          <td>${notas_reg[i]}</td>
+          <td>${notaFinal.toFixed(2)}</td>
+          <td class="${conceito.toLowerCase()}">${conceito}</td>
+        `;
+        // Adicionar a linha à tabela
+        tbody.appendChild(linha);
+      }
+
+      // Exibir a tabela
+      tabela.style.display = "table";
+    }
+
+    function calcularNotaFinal(p, exer, proj, reg) {
+      return p + exer + proj + reg;
+    }
+
+    function obterConceito(notaFinal) {
+      // Lógica para determinar o conceito com base na nota final
+      // Substitua pela lógica da sua Universidade
+      if (notaFinal >= 9) {
+        return "Aprovado";
+      } else if (notaFinal >= 7) {
+        return "Avaliação Final";
+      } else {
+        return "Reprovado";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercício 2 - Tabela Dinâmica</title>
+<style>
+  table {
+    border-collapse: collapse; /* Remove espaçamento entre as células */
+  }
+  td {
+    padding: 10px; /* Espaçamento interno da célula */
+    text-align: center; /* Alinha o texto ao centro */
+    color: black; /* Cor do texto em preto */
+  }
+  .colunaImpar {
+    background-color: yellow; /* Cor de fundo amarela para colunas ímpares */
+  }
+  .colunaPar {
+    background-color: lightgreen; /* Cor de fundo verde para colunas pares */
+  }
+</style>
+</head>
+<body>
+  <script>
+    // Solicita ao usuário o número de linhas e colunas
+    let numLinhas = prompt("Digite o número de linhas da tabela:");
+    let numColunas = prompt("Digite o número de colunas da tabela:");
+
+    // Cria a tabela
+    document.write("<table>");
+    for (let i = 1; i <= numLinhas; i++) {
+      document.write("<tr>");
+      for (let j = 1; j <= numColunas; j++) {
+        // Define a classe da célula com base no número da coluna
+        let classeColuna = (j % 2 == 0) ? "colunaPar" : "colunaImpar";
+        document.write("<td class='" + classeColuna + "'>" + i + "," + j + "</td>");
+      }
+      document.write("</tr>");
+    }
+    document.write("</table>");
+  </script>
+</body>
+</html>

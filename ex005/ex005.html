@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 5</title>
+  <meta charset="UTF-8">
+  <style>
+    .tab-content {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Exercício 5</h2>
+
+  <div>
+    <button class="tab-button" data-target="#cronometro">Cronômetro</button>
+    <button class="tab-button" data-target="#slideshow">Slide Show</button>
+    <button class="tab-button" data-target="#tabuada">Tabuada</button>
+  </div>
+
+  <div id="cronometro" class="tab-content">
+    <p id="timer">0</p>
+  </div>
+
+  <div id="slideshow" class="tab-content">
+    <img id="slide" src="imagem1.png" alt="Imagem 1">
+    <button onclick="previousImage()">Anterior</button>
+    <button onclick="nextImage()">Próximo</button>
+  </div>
+
+  <div id="tabuada" class="tab-content">
+    <label for="numero">Digite o número da tabuada que deseja calcular:</label>
+    <input type="number" id="numero">
+    <button onclick="calcularTabuada()">Calcula</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    // Abaixo, o código JavaScript para cada funcionalidade:
+    
+    // --- Cronômetro ---
+    let segundos = 0;
+    const timerDisplay = document.getElementById('timer');
+
+    function atualizarCronometro() {
+      segundos++;
+      timerDisplay.textContent = segundos;
+    }
+
+    setInterval(atualizarCronometro, 1000);
+
+    let imagemAtual = 1;
+    const totalImagens = 5;
+
+    function previousImage() {
+      imagemAtual--;
+      if (imagemAtual < 1) {
+        imagemAtual = totalImagens;
+      }
+      atualizarImagem();
+    }
+
+    function nextImage() {
+      imagemAtual++;
+      if (imagemAtual > totalImagens) {
+        imagemAtual = 1;
+      }
+      atualizarImagem();
+    }
+
+    function atualizarImagem() {
+      document.getElementById('slide').src = `imagem${imagemAtual}.jpg`;
+    }
+
+    function calcularTabuada() {
+      const numero = parseInt(document.getElementById('numero').value);
+      let resultadoHTML = `<h3>Tabuada do ${numero}:</h3>`;
+      for (let i = 0; i <= 10; i++) {
+        resultadoHTML += `${numero} x ${i} = ${numero * i}<br>`;
+      }
+      document.getElementById('resultado').innerHTML = resultadoHTML;
+    }
+
+    // --- Controle das abas ---
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTabId = button.getAttribute('data-target');
+        const targetTab = document.querySelector(targetTabId);
+
+        tabContents.forEach(content => content.classList.remove('active'));
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+
+        targetTab.classList.add('active');
+        button.classList.add('active');
+      });
+    });
+
+    // Define a primeira aba como ativa ao carregar a página
+    tabContents[0].classList.add('active');
+    tabButtons[0].classList.add('active');
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercício 3</title>
+</head>
+<body>
+  <h1>Exercício 3</h1>
+
+  <form id="meuFormulario">
+    <label for="texto">Digite um texto:</label><br>
+    <input type="text" id="texto" name="texto"><br><br>
+    <button type="button" onclick="mostrarMaiuscula()">Maiúscula</button>
+    <button type="button" onclick="separarPalavras()">Separar</button>
+  </form>
+
+  <div id="resultado"></div>
+
+  <script>
+    function mostrarMaiuscula() {
+      let texto = document.getElementById("texto").value;
+      document.getElementById("resultado").innerHTML = texto.toUpperCase();
+    }
+
+    function separarPalavras() {
+      let texto = document.getElementById("texto").value;
+      let palavras = texto.split(" ");
+      let resultadoHTML = "";
+      for (let i = 0; i < palavras.length; i++) {
+        resultadoHTML += palavras[i] + "<br>";
+      }
+      document.getElementById("resultado").innerHTML = resultadoHTML;
+    }
+  </script>
+</body>
+</html>

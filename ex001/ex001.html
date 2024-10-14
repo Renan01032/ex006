@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exercício 1</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      background-color: #CCCCCC;
+    }
+
+    th {
+      font-size: 15px;
+      font-weight: 700;
+      background-color: #000033;
+      color: #CCCCCC;
+      padding: 8px;
+    }
+
+    td {
+      font-size: 14px;
+      background-color: #000066;
+      color: #CCCCCC;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Nomes</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Índice</th>
+        <th>Nome</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    let indice = 1;
+    while (true) {
+      let nome = prompt("Digite um nome (ou 'cancel' para sair):");
+      if (nome === null || nome.toLowerCase() === "cancel") {
+        break;
+      }
+
+      let tabela = document.querySelector("tbody");
+      let linha = tabela.insertRow();
+      let celulaIndice = linha.insertCell();
+      let celulaNome = linha.insertCell();
+
+      celulaIndice.textContent = indice;
+      celulaNome.textContent = nome;
+
+      indice++;
+    }
+  </script>
+</body>
+</html>
